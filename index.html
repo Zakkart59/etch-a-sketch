@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro-Sketch</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="icon" href="./assets/image/favicon.ico" />
+    <title>Etch-a-Sketch</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <p>Sketch</p>
+      </div>
+      <div class="main">
+        <div class="controls">
+          <div class="color-card">
+            <div class="color-box">
+              <input type="color" id="color-select" />
+            </div>
+            <span>Pen Colour</span>
+          </div>
+          <div class="color-card cc2">
+            <div class="color-box">
+              <input type="color" id="bg-color-select" value="#ffffff" />
+            </div>
+            <span>Background Colour</span>
+          </div>
+          <button id="color-fill">Colour Fill</button>
+          <button id="color-grabber">Colour Grabber</button>
+
+          <button id="eraser-btn">Toggle Eraser</button>
+          <button id="rainbow-btn">Toggle Rainbow</button>
+          <button id="shader-btn">Toggle Shading</button>
+          <button id="lighten-btn">Toggle Lighten</button>
+
+          <div class="slider-box">
+            <input
+              type="range"
+              value="24"
+              min="1"
+              max="60"
+              id="range-slider"
+              onmousemove="rangeSliderValue(this.value)"
+              onChange="rangeSlider(this.value)"
+            />
+            <div id="progress-bar"></div>
+          </div>
+
+          <p class="grid-size">
+            Grid size: <span id="range-value">24</span> x
+            <span id="range-value">24</span>
+          </p>
+
+          <button id="grid-btn" class="btn-on">Toggle Grid Lines</button>
+          <button id="clear-grid">Clear</button><br />
+          <button onclick="save()" id="saveBtn" type="button">Save</button>
+        </div>
+        <div class="grid-wrapper">
+          <div
+            id="canvas"
+            class="grid-container toggle-grid"
+            draggable="false"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+    <script type="text/javascript" src="FileSaver.min.js"></script>
+    <script>
+      const saveBtn = document.getElementById("saveBtn");
+      const canvas = document.getElementById("canvas");
+
+      function save() {
+        //var http = new XMLHttpRequest();
+
+        // Converts canvas to image/png; base64:
+        var image = canvas.toDataURL();
+
+        let blob = new Blob([image], { type: "image/png" });
+        saveAs(blob, image + ".jpeg");
+        /*
+        // Define the image as value to be sent:
+        var params = "image=" + image;
+
+        http.open("POST", "http://localhost/save", true);
+        http.setRequestHeader("Content-type", "image/png");
+
+        http.onreadystatechange = function () {
+          //Call a function when the state changes.
+          if (http.readyState == 4 && http.status == 200) {
+            alert("Image saved successfully");
+          }
+        };
+
+        http.send(params);*/
+      };
+    </script>
+  </body>
+</html>
